@@ -121,6 +121,30 @@ public class Board {
         int row = rs[0];
         int col = rs[1];
 
+        if (!out_of_bound(row + 1, col)) {
+            int[][] copy = makeCopy(tiles);
+            swap(copy, row, col, row + 1, col);
+            board.addFirst(new Board(copy));
+        }
+        if (!out_of_bound(row - 1, col)) {
+            int[][] copy = makeCopy(tiles);
+            swap(copy, row, col, row - 1, col);
+            board.addFirst(new Board(copy));
+        }
+        if (!out_of_bound(row, col + 1)) {
+            int[][] copy = makeCopy(tiles);
+            swap(copy, row, col, row, col + 1);
+            board.addFirst(new Board(copy));
+        }
+        if (!out_of_bound(row, col - 1)) {
+            int[][] copy = makeCopy(tiles);
+            swap(copy, row, col, row, col - 1);
+            board.addFirst(new Board(copy));
+        }
+        return board;
+
+        /**
+         * bad version;
         //create neighbors BOARDS
         if (col == 0) {
             int[][] copy = makeCopy(tiles);
@@ -156,6 +180,11 @@ public class Board {
             board.addFirst(new Board(copy2));
         }
         return board;
+         */
+    }
+
+    boolean out_of_bound(int row, int col) {
+        return row < 0 || col < 0 || row >= tiles.length || col >= tiles[0].length;
     }
 
     private int[] find(int[][] tiles, int k) {
